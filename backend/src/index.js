@@ -25,17 +25,32 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Custom MongoDB sanitization middleware (Express 5 compatible)
 app.use((req, res, next) => {
   // Sanitize req.body
-  if (req.body) {
-    req.body = sanitizeObject(req.body);
+  if (req.body && typeof req.body === 'object') {
+    sanitizeObject(req.body);
   }
-  // Sanitize req.query
-  if (req.query) {
-    req.query = sanitizeObject(req.query);
+  
+  // Sanitize req.query - modify in place
+  if (req.query && typeof req.query === 'object') {
+    const sanitizedQuery = sanitizeObject({ ...req.query });
+    // Delete all existing properties
+    Object.keys(req.query).forEach(key => {
+      delete req.query[key];
+    });
+    // Add sanitized properties
+    Object.assign(req.query, sanitizedQuery);
   }
-  // Sanitize req.params
-  if (req.params) {
-    req.params = sanitizeObject(req.params);
+  
+  // Sanitize req.params - modify in place
+  if (req.params && typeof req.params === 'object') {
+    const sanitizedParams = sanitizeObject({ ...req.params });
+    // Delete all existing properties
+    Object.keys(req.params).forEach(key => {
+      delete req.params[key];
+    });
+    // Add sanitized properties
+    Object.assign(req.params, sanitizedParams);
   }
+  
   next();
 });
 
