@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // API Base URL
 const API_URL = 'https://heraim.vercel.app/api';
@@ -21,23 +21,227 @@ interface AuthResponse {
   error?: string;
   errors?: string[];
 }
+const CodeIcon = ({ delay = 0 }: { delay?: number }) => (
+  <div 
+    className="inline-block animate-bounce"
+    style={{ animationDelay: `${delay}ms`, animationDuration: '2s' }}
+  >
+    <svg className="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+    </svg>
+  </div>
+);
+
+// Welcome Screen Component
+const WelcomeScreen = ({ onContinue }: { onContinue: () => void }) => {
+  const [fadeIn, setFadeIn] = useState(false);
+
+  useEffect(() => {
+    setFadeIn(true);
+  }, []);
+
+  const features = [
+    {
+      icon: "🎯",
+      title: "Interactive Classes",
+      description: "Join us on Discord for live, screen-sharing sessions where we will guide you through the world of coding."
+    },
+    {
+      icon: "📚",
+      title: "Comprehensive Curriculum",
+      description: "Master HTML, CSS, JavaScript, Node.js, React, and SQL with our carefully crafted courses."
+    },
+    {
+      icon: "💻",
+      title: "Hands-on Learning",
+      description: "Get practical experience and feedback from our supportive community."
+    },
+    {
+      icon: "⏰",
+      title: "Flexible Schedule",
+      description: "Learn at your own pace, anytime, anywhere."
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-white flex items-center justify-center p-4 overflow-hidden relative">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute bg-black/5 rounded-full blur-xl animate-float"
+            style={{
+              width: `${Math.random() * 300 + 50}px`,
+              height: `${Math.random() * 300 + 50}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${Math.random() * 10 + 10}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div 
+        className={`relative max-w-4xl w-full transition-all duration-1000 transform ${
+          fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
+        {/* Main Card */}
+        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-black/10">
+          {/* Header with Animation */}
+          <div className="text-center mb-8">
+            <div className="flex justify-center gap-2 mb-4">
+              <CodeIcon delay={0} />
+              <CodeIcon delay={200} />
+              <CodeIcon delay={400} />
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4 animate-pulse">
+              Welcome to Heraim Coding Hub!
+            </h1>
+            <p className="text-lg text-black max-w-2xl mx-auto leading-relaxed">
+              Join our vibrant community and embark on a coding journey like no other! We're not a traditional school, 
+              but a <span className="font-semibold text-black underline">dynamic collective</span> of tech enthusiasts and like-minded learners.
+            </p>
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="group bg-white p-6 rounded-xl border-2 border-black/10 hover:border-black transition-all duration-300 transform hover:scale-105 hover:shadow-xl cursor-pointer"
+                style={{
+                  animation: `slideIn 0.5s ease-out ${index * 0.1}s both`
+                }}
+              >
+                <div className="text-4xl mb-3 transform group-hover:scale-110 transition-transform duration-300">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold text-black mb-2 group-hover:underline transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-black/80 text-sm leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Technologies */}
+          <div className="bg-black/5 rounded-xl p-6 mb-8">
+            <h3 className="text-xl font-bold text-black mb-4 text-center">
+              🚀 Technologies You'll Master
+            </h3>
+            <div className="flex flex-wrap justify-center gap-3">
+              {['HTML', 'CSS', 'JavaScript', 'Node.js', 'React', 'SQL'].map((tech, index) => (
+                <span
+                  key={tech}
+                  className="px-4 py-2 bg-white rounded-full text-sm font-semibold text-black shadow-md hover:shadow-lg transform hover:scale-110 border border-black/10 transition-all duration-300 cursor-pointer"
+                  style={{
+                    animation: `fadeIn 0.5s ease-out ${index * 0.1}s both`
+                  }}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="text-center space-y-4">
+            <p className="text-lg text-black font-medium">
+              Don't miss this opportunity to transform your passion into a skill!
+            </p>
+            <p className="text-xl font-bold text-black">
+              You won't regret it! 🎉
+            </p>
+            <p className="text-black/80 mb-6">
+              Our community is dedicated to helping you succeed, and we are committed to ensuring you become a proficient coder.
+            </p>
+            
+            <button
+              onClick={onContinue}
+              className="group relative px-8 py-4 bg-black text-white text-lg font-bold rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                Get Started Now
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </span>
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+            </button>
+          </div>
+        </div>
+
+        {/* Floating Badge */}
+        <div className="mt-6 text-center animate-bounce">
+          <span className="inline-block bg-black/10 backdrop-blur px-6 py-2 rounded-full text-sm font-medium text-black shadow-lg">
+            ✨ Come for the learning, stay for the community!
+          </span>
+        </div>
+      </div>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0) translateX(0);
+          }
+          50% {
+            transform: translateY(-20px) translateX(20px);
+          }
+        }
+
+        .animate-float {
+          animation: float infinite ease-in-out;
+        }
+      `}</style>
+    </div>
+  );
+};
 
 // Eye icon SVGs
 const EyeIcon = ({ open = false }: { open: boolean }) => open ? (
   // Eye Open
-  <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+  <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" d="M1.458 12C2.732 7.943 6.523 5 12 5c5.478 0 9.268 2.943 10.542 7-.325 1.14-1.263 3.103-3.285 5.22-1.906 1.992-4.518 3.78-7.257 3.78s-5.351-1.788-7.257-3.78C2.721 15.104 1.783 13.141 1.458 12z"/>
     <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
   </svg>
 ) : (
   // Eye Closed
-  <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+  <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-5.478 0-9.268-2.943-10.542-7a13.086 13.086 0 012.799-4.119M21.542 12.001a12.074 12.074 0 00-1.33-2.447M9.88 9.88A3 3 0 0012 15a3 3 0 002.12-5.12M6.1 6.1l11.8 11.8"/>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18"/>
   </svg>
 );
 
 export default function AuthScreens() {
+  const [showWelcome, setShowWelcome] = useState(true);
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -160,23 +364,29 @@ export default function AuthScreens() {
     }
   };
 
+  if (showWelcome) {
+    return (
+      <WelcomeScreen onContinue={() => setShowWelcome(false)} />
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold text-black mb-2">
             Heraim Academy
           </h1>
-          <p className="text-gray-600">
+          <p className="text-black/80">
             {isLogin ? 'Welcome back!' : 'Start your learning journey'}
           </p>
         </div>
 
         {/* Auth Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="bg-white rounded-2xl shadow-xl p-8 border border-black/10">
           {/* Toggle Tabs */}
-          <div className="flex gap-2 mb-6 bg-gray-100 p-1 rounded-lg">
+          <div className="flex gap-2 mb-6 bg-black/5 p-1 rounded-lg">
             <button
               onClick={() => {
                 setIsLogin(true);
@@ -185,8 +395,8 @@ export default function AuthScreens() {
               }}
               className={`flex-1 py-2 px-4 rounded-md font-medium transition-all ${
                 isLogin
-                  ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-white text-black shadow-sm border border-black/20'
+                  : 'text-black/50 hover:text-black'
               }`}
             >
               Login
@@ -199,8 +409,8 @@ export default function AuthScreens() {
               }}
               className={`flex-1 py-2 px-4 rounded-md font-medium transition-all ${
                 !isLogin
-                  ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-white text-black shadow-sm border border-black/20'
+                  : 'text-black/50 hover:text-black'
               }`}
             >
               Sign Up
@@ -209,7 +419,7 @@ export default function AuthScreens() {
 
           {/* Alert Messages */}
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-start gap-2">
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 rounded-lg text-red-700 text-sm flex items-start gap-2">
               <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
               </svg>
@@ -217,7 +427,7 @@ export default function AuthScreens() {
             </div>
           )}
           {success && (
-            <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm flex items-start gap-2">
+            <div className="mb-4 p-3 bg-green-100 border border-green-400 rounded-lg text-green-800 text-sm flex items-start gap-2">
               <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
@@ -229,7 +439,7 @@ export default function AuthScreens() {
           {isLogin ? (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Email Address
                 </label>
                 <input
@@ -239,13 +449,13 @@ export default function AuthScreens() {
                     setLoginData({ ...loginData, email: e.target.value })
                   }
                   onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-2 border border-black/20 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition bg-white text-black"
                   placeholder="you@example.com"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Password
                 </label>
                 <div className="relative">
@@ -256,14 +466,14 @@ export default function AuthScreens() {
                       setLoginData({ ...loginData, password: e.target.value })
                     }
                     onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-black pr-10"
+                    className="w-full px-4 py-2 border border-black/20 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition bg-white text-black pr-10"
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setLoginPasswordVisible(v => !v)}
                     tabIndex={-1}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-gray-100 focus:outline-none"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-black/10 focus:outline-none"
                     aria-label={loginPasswordVisible ? 'Hide password' : 'Show password'}
                   >
                     <EyeIcon open={loginPasswordVisible} />
@@ -274,9 +484,9 @@ export default function AuthScreens() {
               <div className="flex items-center justify-between text-sm">
                 <label className="flex items-center cursor-pointer">
                   <input type="checkbox" className="mr-2 cursor-pointer" />
-                  <span className="text-gray-600">Remember me</span>
+                  <span className="text-black/60">Remember me</span>
                 </label>
-                <button className="text-blue-600 hover:text-blue-700 hover:underline">
+                <button className="text-black/70 hover:text-black hover:underline">
                   Forgot password?
                 </button>
               </div>
@@ -284,7 +494,7 @@ export default function AuthScreens() {
               <button
                 onClick={handleLogin}
                 disabled={loading || !loginData.email || !loginData.password}
-                className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:bg-blue-400 disabled:cursor-not-allowed"
+                className="w-full bg-black text-white py-2.5 rounded-lg font-medium hover:bg-black/80 transition-colors disabled:bg-black/30 disabled:cursor-not-allowed"
               >
                 {loading ? 'Logging in...' : 'Login'}
               </button>
@@ -294,7 +504,7 @@ export default function AuthScreens() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-black mb-1">
                     First Name
                   </label>
                   <input
@@ -303,12 +513,12 @@ export default function AuthScreens() {
                     onChange={(e) =>
                       setSignupData({ ...signupData, firstName: e.target.value })
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                    className="w-full px-4 py-2 border border-black/20 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition bg-white text-black"
                     placeholder="John"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-black mb-1">
                     Last Name
                   </label>
                   <input
@@ -317,14 +527,14 @@ export default function AuthScreens() {
                     onChange={(e) =>
                       setSignupData({ ...signupData, lastName: e.target.value })
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                    className="w-full px-4 py-2 border border-black/20 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition bg-white text-black"
                     placeholder="Doe"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Email Address
                 </label>
                 <input
@@ -333,13 +543,13 @@ export default function AuthScreens() {
                   onChange={(e) =>
                     setSignupData({ ...signupData, email: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-2 border border-black/20 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition bg-white text-black"
                   placeholder="you@example.com"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   I am a
                 </label>
                 <select
@@ -347,7 +557,7 @@ export default function AuthScreens() {
                   onChange={(e) =>
                     setSignupData({ ...signupData, role: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition bg-white text-black"
+                  className="w-full px-4 py-2 border border-black/20 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition bg-white text-black"
                 >
                   <option value="student">Student</option>
                   <option value="instructor">Instructor</option>
@@ -355,7 +565,7 @@ export default function AuthScreens() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Password
                 </label>
                 <div className="relative">
@@ -365,26 +575,26 @@ export default function AuthScreens() {
                     onChange={(e) =>
                       setSignupData({ ...signupData, password: e.target.value })
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-black pr-10"
+                    className="w-full px-4 py-2 border border-black/20 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition bg-white text-black pr-10"
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setSignupPasswordVisible(v => !v)}
                     tabIndex={-1}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-gray-100 focus:outline-none"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-black/10 focus:outline-none"
                     aria-label={signupPasswordVisible ? 'Hide password' : 'Show password'}
                   >
                     <EyeIcon open={signupPasswordVisible} />
                   </button>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-black/50 mt-1">
                   Minimum 8 characters with uppercase, lowercase, and number
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Confirm Password
                 </label>
                 <div className="relative">
@@ -398,14 +608,14 @@ export default function AuthScreens() {
                       })
                     }
                     onKeyDown={(e) => e.key === 'Enter' && handleSignup()}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-black pr-10"
+                    className="w-full px-4 py-2 border border-black/20 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition bg-white text-black pr-10"
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setSignupConfirmPasswordVisible(v => !v)}
                     tabIndex={-1}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-gray-100 focus:outline-none"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-black/10 focus:outline-none"
                     aria-label={signupConfirmPasswordVisible ? 'Hide confirm password' : 'Show confirm password'}
                   >
                     <EyeIcon open={signupConfirmPasswordVisible} />
@@ -416,7 +626,7 @@ export default function AuthScreens() {
               <button
                 onClick={handleSignup}
                 disabled={loading || !signupData.firstName || !signupData.lastName || !signupData.email || !signupData.password}
-                className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:bg-blue-400 disabled:cursor-not-allowed"
+                className="w-full bg-black text-white py-2.5 rounded-lg font-medium hover:bg-black/80 transition-colors disabled:bg-black/30 disabled:cursor-not-allowed"
               >
                 {loading ? 'Creating Account...' : 'Create Account'}
               </button>
@@ -427,63 +637,22 @@ export default function AuthScreens() {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
+                <div className="w-full border-t border-black/10"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  Or continue with
-                </span>
               </div>
-            </div>
-
-            {/* Social Login */}
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24">
-                  <path
-                    fill="#4285F4"
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                  />
-                  <path
-                    fill="#34A853"
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                  />
-                  <path
-                    fill="#FBBC05"
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                  />
-                  <path
-                    fill="#EA4335"
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                  />
-                </svg>
-                <span className="ml-2 text-sm font-medium text-gray-700">Google</span>
-              </button>
-
-              <button
-                type="button"
-                className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
-              >
-                <svg className="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-                <span className="ml-2 text-sm font-medium text-gray-700">Facebook</span>
-              </button>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <p className="text-center mt-6 text-sm text-gray-600">
+        <p className="text-center mt-6 text-sm text-black/60">
           By continuing, you agree to our{' '}
-          <button className="text-blue-600 hover:underline">
+          <button className="text-black hover:underline">
             Terms of Service
           </button>{' '}
           and{' '}
-          <button className="text-blue-600 hover:underline">
+          <button className="text-black hover:underline">
             Privacy Policy
           </button>
         </p>
