@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 // API Base URL
 const API_URL = 'https://heraim.vercel.app/api';
@@ -21,6 +22,7 @@ interface AuthResponse {
   error?: string;
   errors?: string[];
 }
+
 const CodeIcon = ({ delay = 0 }: { delay?: number }) => (
   <div 
     className="inline-block animate-bounce"
@@ -241,6 +243,7 @@ const EyeIcon = ({ open = false }: { open: boolean }) => open ? (
 );
 
 export default function AuthScreens() {
+  const router = useRouter();
   const [showWelcome, setShowWelcome] = useState(true);
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -286,13 +289,18 @@ export default function AuthScreens() {
       const data: AuthResponse = await response.json();
 
       if (data.success && data.data) {
-        setSuccess('Login successful! Welcome back.');
+        setSuccess('Login successful! Redirecting...');
         // Store token
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('user', JSON.stringify(data.data.user));
         
-        // Reset
+        // Reset form
         setLoginData({ email: '', password: '' });
+        
+        // Redirect to home page after a short delay
+        setTimeout(() => {
+          router.push('/home');
+        }, 1000);
       } else {
         setError(data.message || 'Login failed');
       }
@@ -340,11 +348,11 @@ export default function AuthScreens() {
       const data: AuthResponse = await response.json();
 
       if (data.success && data.data) {
-        setSuccess('Account created successfully! Welcome aboard.');
+        setSuccess('Account created successfully! Redirecting...');
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('user', JSON.stringify(data.data.user));
         
-        // Reset
+        // Reset form
         setSignupData({
           firstName: '',
           lastName: '',
@@ -353,6 +361,11 @@ export default function AuthScreens() {
           confirmPassword: '',
           role: 'student'
         });
+        
+        // Redirect to home page after a short delay
+        setTimeout(() => {
+          router.push('/home');
+        }, 1000);
       } else {
         setError(data.message || data.errors?.join(', ') || 'Registration failed');
       }
