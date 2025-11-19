@@ -389,7 +389,7 @@ export default function AuthScreens() {
         {/* Logo/Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-black mb-2">
-            Heraim Academy
+            Heraim Coding Hub
           </h1>
           <p className="text-black/80">
             {isLogin ? 'Welcome back!' : 'Start your learning journey'}
