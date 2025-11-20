@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { coursesData, CourseDetailsModal, Course } from '@/components/CourseDetails';
 
 interface User {
   id: string;
@@ -14,6 +15,7 @@ export default function HomePage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   useEffect(() => {
     // Check if user is logged in
@@ -40,6 +42,32 @@ export default function HomePage() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     router.push('/');
+  };
+
+  const handleEnroll = (course: Course) => {
+    const message = `Hello Heraim Coding Hub! 👋
+
+I would like to enroll in:
+
+📚 *Course:* ${course.title}
+📊 *Level:* ${course.level}
+⏱️ *Duration:* ${course.duration}
+
+Course Syllabus:
+${course.syllabus.map((week) => 
+  `\n*Week ${week.week}: ${week.title}*
+${week.topics.map(topic => `  • ${topic}`).join('\n')}`
+).join('\n')}
+
+I'm excited to start learning! Please provide me with enrollment details.
+
+Thank you! 🚀`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/2347047249252?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+    setSelectedCourse(null);
   };
 
   if (loading) {
@@ -147,17 +175,11 @@ export default function HomePage() {
         <div className="mb-8">
           <h3 className="text-2xl font-bold text-black mb-4">Available Courses</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { title: 'HTML & CSS Fundamentals', level: 'Beginner', duration: '4 weeks' },
-              { title: 'JavaScript Essentials', level: 'Beginner', duration: '6 weeks' },
-              { title: 'React Development', level: 'Intermediate', duration: '8 weeks' },
-              { title: 'Node.js & Express', level: 'Intermediate', duration: '6 weeks' },
-              { title: 'SQL & Databases', level: 'Intermediate', duration: '5 weeks' },
-              { title: 'Full Stack Project', level: 'Advanced', duration: '10 weeks' },
-            ].map((course, index) => (
+            {coursesData.map((course) => (
               <div
-                key={index}
+                key={course.id}
                 className="bg-white border border-black/10 rounded-xl p-6 hover:shadow-lg hover:border-black/30 transition-all cursor-pointer group"
+                onClick={() => setSelectedCourse(course)}
               >
                 <div className="flex justify-between items-start mb-3">
                   <h4 className="text-lg font-semibold text-black group-hover:underline">
@@ -170,8 +192,15 @@ export default function HomePage() {
                 <p className="text-sm text-black/60 mb-4">
                   Duration: {course.duration}
                 </p>
-                <button className="w-full py-2 bg-black text-white rounded-lg hover:bg-black/80 transition-colors text-sm font-medium">
-                  Enroll Now
+                <button 
+                  className="w-full py-2 bg-black text-white rounded-lg hover:bg-black/80 transition-colors text-sm font-medium"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedCourse(course);
+                  }}
+                  type="button"
+                >
+                  View Details
                 </button>
               </div>
             ))}
@@ -189,6 +218,14 @@ export default function HomePage() {
           </button>
         </div>
       </main>
+
+      {selectedCourse && (
+        <CourseDetailsModal
+          course={selectedCourse}
+          onClose={() => setSelectedCourse(null)}
+          onEnroll={handleEnroll}
+        />
+      )}
     </div>
   );
 }
