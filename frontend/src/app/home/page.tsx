@@ -137,50 +137,120 @@ Thank you! 🚀`;
         {/* Available Courses */}
         <div className="mb-8">
           <h3 className="text-2xl font-bold text-black mb-4">Available Courses</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {coursesData.map((course) => (
-              <div
-                key={course.id}
-                className="bg-white border border-black/10 rounded-xl p-6 hover:shadow-lg hover:border-black/30 transition-all cursor-pointer group"
-                onClick={() => setSelectedCourse(course)}
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <h4 className="text-lg font-semibold text-black group-hover:underline">
-                    {course.title}
-                  </h4>
-                  <span className="text-xs font-medium px-2 py-1 bg-black/10 rounded-full text-black">
-                    {course.level}
-                  </span>
-                </div>
-                <p className="text-sm text-black/60 mb-2">
-                  Duration: {course.duration}
-                </p>
-                {course.price > 0 && (
-                  <div className="mb-4">
-                    <div className="flex items-baseline gap-2">
-                      {course.originalPrice && course.originalPrice > course.price && (
-                        <span className="text-sm text-black/50 line-through">
-                          ₦{course.originalPrice.toLocaleString()}
-                        </span>
-                      )}
-                      <span className="text-lg font-bold text-black">
-                        ₦{course.price.toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-                )}
-                <button 
-                  className="w-full py-2 bg-black text-white rounded-lg hover:bg-black/80 transition-colors text-sm font-medium"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedCourse(course);
-                  }}
-                  type="button"
+          
+          {/* Packages Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {coursesData
+              .filter(course => course.id === 9 || course.id === 10) // Frontend Package and Backend Package
+              .map((course) => (
+                <div
+                  key={course.id}
+                  className="bg-white border border-black/10 rounded-xl p-6 hover:shadow-lg hover:border-black/30 transition-all cursor-pointer group"
+                  onClick={() => setSelectedCourse(course)}
                 >
-                  View Details
-                </button>
-              </div>
-            ))}
+                  <div className="flex justify-between items-start mb-3">
+                    <h4 className="text-lg font-semibold text-black group-hover:underline">
+                      {course.title}
+                    </h4>
+                    <span className="text-xs font-medium px-2 py-1 bg-black/10 rounded-full text-black">
+                      {course.level}
+                    </span>
+                  </div>
+                  <p className="text-sm text-black/60 mb-2">
+                    Duration: {course.duration}
+                  </p>
+                  {course.price > 0 && (
+                    <div className="mb-4">
+                      <div className="flex items-baseline gap-2">
+                        {course.originalPrice && course.originalPrice > course.price && (
+                          <span className="text-sm text-black/50 line-through">
+                            ₦{course.originalPrice.toLocaleString()}
+                          </span>
+                        )}
+                        <span className="text-lg font-bold text-black">
+                          ₦{course.price.toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <button 
+                    className="w-full py-2 bg-black text-white rounded-lg hover:bg-black/80 transition-colors text-sm font-medium"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedCourse(course);
+                    }}
+                    type="button"
+                  >
+                    View Details
+                  </button>
+                </div>
+              ))}
+          </div>
+
+          {/* Separator Text */}
+          <div className="text-center mb-6">
+            <p className="text-lg font-medium text-black/70">or select languages individually</p>
+          </div>
+
+          {/* Individual Courses Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {coursesData
+              .filter(course => 
+                course.id === 1 || // HTML & CSS
+                course.id === 2 || // JavaScript
+                course.id === 4 || // Node.js
+                course.id === 3 || // React
+                course.id === 5 || // SQL
+                course.id === 7    // MongoDB
+              )
+              .sort((a, b) => {
+                // Order: HTML & CSS, JS, Node.js, React, SQL, MongoDB
+                const order = [1, 2, 4, 3, 5, 7];
+                return order.indexOf(a.id) - order.indexOf(b.id);
+              })
+              .map((course) => (
+                <div
+                  key={course.id}
+                  className="bg-white border border-black/10 rounded-xl p-6 hover:shadow-lg hover:border-black/30 transition-all cursor-pointer group"
+                  onClick={() => setSelectedCourse(course)}
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <h4 className="text-lg font-semibold text-black group-hover:underline">
+                      {course.title}
+                    </h4>
+                    <span className="text-xs font-medium px-2 py-1 bg-black/10 rounded-full text-black">
+                      {course.level}
+                    </span>
+                  </div>
+                  <p className="text-sm text-black/60 mb-2">
+                    Duration: {course.duration}
+                  </p>
+                  {course.price > 0 && (
+                    <div className="mb-4">
+                      <div className="flex items-baseline gap-2">
+                        {course.originalPrice && course.originalPrice > course.price && (
+                          <span className="text-sm text-black/50 line-through">
+                            ₦{course.originalPrice.toLocaleString()}
+                          </span>
+                        )}
+                        <span className="text-lg font-bold text-black">
+                          ₦{course.price.toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <button 
+                    className="w-full py-2 bg-black text-white rounded-lg hover:bg-black/80 transition-colors text-sm font-medium"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedCourse(course);
+                    }}
+                    type="button"
+                  >
+                    View Details
+                  </button>
+                </div>
+              ))}
           </div>
         </div>
 
