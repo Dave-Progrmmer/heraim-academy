@@ -15,6 +15,8 @@ export type Course = {
   description: string;
   instructor: string;
   students: number;
+  price: number; // Price in Naira (e.g., 30000 for 30k)
+  originalPrice?: number; // Original price for discounted courses
   syllabus: SyllabusWeek[];
 };
 
@@ -27,6 +29,7 @@ export const coursesData: Course[] = [
     description: 'Master the building blocks of web development. Learn to create beautiful, responsive websites from scratch.',
     instructor: 'Heraim Team',
     students: 0,
+    price: 30000,
     syllabus: [
       {
         week: 1,
@@ -78,6 +81,7 @@ export const coursesData: Course[] = [
     description: 'Learn the fundamentals of JavaScript programming and add interactivity to your websites.',
     instructor: 'Heraim Team',
     students: 0,
+    price: 50000,
     syllabus: [
       {
         week: 1,
@@ -149,6 +153,7 @@ export const coursesData: Course[] = [
     description: 'Build modern, dynamic web applications using React, the most popular JavaScript library.',
     instructor: 'Heraim Team',
     students: 0,
+    price: 30000,
     syllabus: [
       {
         week: 1,
@@ -240,6 +245,7 @@ export const coursesData: Course[] = [
     description: 'Learn server-side JavaScript development with Node.js and build RESTful APIs with Express.',
     instructor: 'Heraim Team',
     students: 0,
+    price: 40000,
     syllabus: [
       {
         week: 1,
@@ -311,6 +317,7 @@ export const coursesData: Course[] = [
     description: 'Master SQL and learn to design, query, and manage relational databases effectively.',
     instructor: 'Heraim Team',
     students: 0,
+    price: 10000,
     syllabus: [
       {
         week: 1,
@@ -372,6 +379,7 @@ export const coursesData: Course[] = [
     description: 'Put all your skills together and build a complete full-stack application from scratch.',
     instructor: 'Heraim Team',
     students: 0,
+    price: 0,
     syllabus: [
       {
         week: 1,
@@ -474,6 +482,245 @@ export const coursesData: Course[] = [
         ]
       }
     ]
+  },
+  {
+    id: 7,
+    title: 'MongoDB & NoSQL',
+    level: 'Intermediate',
+    duration: '4 weeks',
+    description: 'Learn MongoDB and NoSQL database concepts. Master document-based database design and operations.',
+    instructor: 'Heraim Team',
+    students: 0,
+    price: 10000,
+    syllabus: [
+      {
+        week: 1,
+        title: 'Introduction to MongoDB',
+        topics: [
+          'NoSQL vs SQL databases',
+          'MongoDB installation and setup',
+          'MongoDB shell basics',
+          'Document structure and BSON'
+        ]
+      },
+      {
+        week: 2,
+        title: 'CRUD Operations',
+        topics: [
+          'Creating databases and collections',
+          'Insert, find, update, delete operations',
+          'Query operators',
+          'Indexing basics'
+        ]
+      },
+      {
+        week: 3,
+        title: 'Advanced MongoDB',
+        topics: [
+          'Aggregation pipeline',
+          'Data modeling',
+          'Relationships and references',
+          'Performance optimization'
+        ]
+      },
+      {
+        week: 4,
+        title: 'Mongoose & Integration',
+        topics: [
+          'Mongoose ODM',
+          'Schemas and models',
+          'Integration with Node.js/Express',
+          'Real-world project implementation'
+        ]
+      }
+    ]
+  },
+  {
+    id: 8,
+    title: 'Git & Version Control',
+    level: 'Beginner',
+    duration: '2 weeks',
+    description: 'Master Git version control system. Learn to track changes, collaborate, and manage your codebase effectively.',
+    instructor: 'Heraim Team',
+    students: 0,
+    price: 0,
+    syllabus: [
+      {
+        week: 1,
+        title: 'Git Fundamentals',
+        topics: [
+          'Introduction to version control',
+          'Git installation and setup',
+          'Basic commands (init, add, commit)',
+          'Understanding the staging area'
+        ]
+      },
+      {
+        week: 2,
+        title: 'Advanced Git',
+        topics: [
+          'Branching and merging',
+          'Remote repositories (GitHub, GitLab)',
+          'Pull requests and collaboration',
+          'Resolving conflicts'
+        ]
+      }
+    ]
+  },
+  {
+    id: 9,
+    title: 'Frontend Development Package',
+    level: 'Beginner to Intermediate',
+    duration: '20 weeks',
+    description: 'Complete frontend development package including HTML, CSS, JavaScript, React, and Git. Perfect for aspiring frontend developers.',
+    instructor: 'Heraim Team',
+    students: 0,
+    price: 100000,
+    syllabus: [
+      {
+        week: 1,
+        title: 'HTML & CSS Fundamentals',
+        topics: [
+          'HTML structure and semantics',
+          'CSS styling and layout',
+          'Responsive design',
+          'Project: Build a landing page'
+        ]
+      },
+      {
+        week: 2,
+        title: 'JavaScript Essentials',
+        topics: [
+          'JavaScript basics',
+          'DOM manipulation',
+          'Event handling',
+          'Project: Interactive web app'
+        ]
+      },
+      {
+        week: 3,
+        title: 'React Development',
+        topics: [
+          'React fundamentals',
+          'State management',
+          'React Router',
+          'Project: React application'
+        ]
+      },
+      {
+        week: 4,
+        title: 'Git & Version Control',
+        topics: [
+          'Git basics',
+          'Collaboration workflows',
+          'Project: Portfolio website'
+        ]
+      }
+    ]
+  },
+  {
+    id: 10,
+    title: 'Backend Development Package',
+    level: 'Intermediate',
+    duration: '17 weeks',
+    description: 'Complete backend development package including SQL, MongoDB, JavaScript, Node.js, and Git. Master server-side development.',
+    instructor: 'Heraim Team',
+    students: 0,
+    price: 100000,
+    syllabus: [
+      {
+        week: 1,
+        title: 'SQL & Databases',
+        topics: [
+          'Database design',
+          'SQL queries',
+          'Relationships and joins',
+          'Project: Database design'
+        ]
+      },
+      {
+        week: 2,
+        title: 'MongoDB & NoSQL',
+        topics: [
+          'MongoDB fundamentals',
+          'Document modeling',
+          'Aggregation',
+          'Project: NoSQL database'
+        ]
+      },
+      {
+        week: 3,
+        title: 'JavaScript & Node.js',
+        topics: [
+          'JavaScript review',
+          'Node.js fundamentals',
+          'Express framework',
+          'Project: RESTful API'
+        ]
+      },
+      {
+        week: 4,
+        title: 'Git & Deployment',
+        topics: [
+          'Version control',
+          'API deployment',
+          'Project: Complete backend system'
+        ]
+      }
+    ]
+  },
+  {
+    id: 11,
+    title: 'Full Stack Development Package',
+    level: 'Advanced',
+    duration: '30 weeks',
+    description: 'Complete full stack development package covering frontend, backend, databases, and deployment. Build production-ready applications.',
+    instructor: 'Heraim Team',
+    students: 0,
+    price: 150000,
+    originalPrice: 200000,
+    syllabus: [
+      {
+        week: 1,
+        title: 'Frontend Foundation',
+        topics: [
+          'HTML, CSS, JavaScript',
+          'React development',
+          'State management',
+          'Project: Frontend application'
+        ]
+      },
+      {
+        week: 2,
+        title: 'Backend Foundation',
+        topics: [
+          'Node.js and Express',
+          'RESTful APIs',
+          'Authentication',
+          'Project: Backend API'
+        ]
+      },
+      {
+        week: 3,
+        title: 'Database Mastery',
+        topics: [
+          'SQL and relational databases',
+          'MongoDB and NoSQL',
+          'Database design',
+          'Project: Database integration'
+        ]
+      },
+      {
+        week: 4,
+        title: 'Full Stack Integration',
+        topics: [
+          'Connecting frontend and backend',
+          'Deployment strategies',
+          'Git and version control',
+          'Project: Complete full stack application'
+        ]
+      }
+    ]
   }
 ];
 
@@ -498,26 +745,45 @@ export const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ course, 
                 </span>
               </div>
               <p className="text-black/70 mb-3">{course.description}</p>
-              <div className="flex gap-4 text-sm text-black/60">
-                <div className="flex items-center gap-1">
+              <div className="flex flex-wrap items-center gap-4 mb-3">
+                <div className="flex items-center gap-1 text-sm text-black/60">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
                   </svg>
                   <span>{course.instructor}</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 text-sm text-black/60">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
                   </svg>
                   <span>{course.duration}</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 text-sm text-black/60">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
                   </svg>
                   <span>{course.students} students enrolled</span>
                 </div>
               </div>
+              {course.price > 0 && (
+                <div className="flex items-center gap-3">
+                  <div className="flex items-baseline gap-2">
+                    {course.originalPrice && course.originalPrice > course.price && (
+                      <span className="text-lg text-black/50 line-through">
+                        ₦{course.originalPrice.toLocaleString()}
+                      </span>
+                    )}
+                    <span className="text-2xl font-bold text-black">
+                      ₦{course.price.toLocaleString()}
+                    </span>
+                  </div>
+                  {course.originalPrice && course.originalPrice > course.price && (
+                    <span className="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-semibold">
+                      {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}% OFF
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
             <button
               onClick={onClose}
@@ -602,6 +868,12 @@ export default function CourseDetailsDemo() {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   const handleEnroll = (course: Course) => {
+    const priceText = course.price > 0 
+      ? course.originalPrice && course.originalPrice > course.price
+        ? `💰 *Price:* ₦${course.price.toLocaleString()} (Original: ₦${course.originalPrice.toLocaleString()})`
+        : `💰 *Price:* ₦${course.price.toLocaleString()}`
+      : '';
+    
     const message = `Hello Heraim Coding Hub! 👋
 
 I would like to enroll in:
@@ -609,7 +881,7 @@ I would like to enroll in:
 📚 *Course:* ${course.title}
 📊 *Level:* ${course.level}
 ⏱️ *Duration:* ${course.duration}
-
+${priceText ? priceText + '\n' : ''}
 Course Syllabus:
 ${course.syllabus.map((week) => 
   `\n*Week ${week.week}: ${week.title}*
@@ -647,9 +919,23 @@ Thank you! 🚀`;
                   {course.level}
                 </span>
               </div>
-              <p className="text-sm text-black/60 mb-4">
+              <p className="text-sm text-black/60 mb-2">
                 Duration: {course.duration}
               </p>
+              {course.price > 0 && (
+                <div className="mb-4">
+                  <div className="flex items-baseline gap-2">
+                    {course.originalPrice && course.originalPrice > course.price && (
+                      <span className="text-sm text-black/50 line-through">
+                        ₦{course.originalPrice.toLocaleString()}
+                      </span>
+                    )}
+                    <span className="text-lg font-bold text-black">
+                      ₦{course.price.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              )}
               <button className="w-full py-2 bg-black text-white rounded-lg hover:bg-black/80 transition-colors text-sm font-medium" type="button">
                 View Details
               </button>

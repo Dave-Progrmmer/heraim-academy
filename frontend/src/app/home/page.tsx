@@ -45,6 +45,12 @@ export default function HomePage() {
   };
 
   const handleEnroll = (course: Course) => {
+    const priceText = course.price > 0 
+      ? course.originalPrice && course.originalPrice > course.price
+        ? `💰 *Price:* ₦${course.price.toLocaleString()} (Original: ₦${course.originalPrice.toLocaleString()})`
+        : `💰 *Price:* ₦${course.price.toLocaleString()}`
+      : '';
+    
     const message = `Hello Heraim Coding Hub! 👋
 
 I would like to enroll in:
@@ -52,7 +58,7 @@ I would like to enroll in:
 📚 *Course:* ${course.title}
 📊 *Level:* ${course.level}
 ⏱️ *Duration:* ${course.duration}
-
+${priceText ? priceText + '\n' : ''}
 Course Syllabus:
 ${course.syllabus.map((week) => 
   `\n*Week ${week.week}: ${week.title}*
@@ -189,9 +195,23 @@ Thank you! 🚀`;
                     {course.level}
                   </span>
                 </div>
-                <p className="text-sm text-black/60 mb-4">
+                <p className="text-sm text-black/60 mb-2">
                   Duration: {course.duration}
                 </p>
+                {course.price > 0 && (
+                  <div className="mb-4">
+                    <div className="flex items-baseline gap-2">
+                      {course.originalPrice && course.originalPrice > course.price && (
+                        <span className="text-sm text-black/50 line-through">
+                          ₦{course.originalPrice.toLocaleString()}
+                        </span>
+                      )}
+                      <span className="text-lg font-bold text-black">
+                        ₦{course.price.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                )}
                 <button 
                   className="w-full py-2 bg-black text-white rounded-lg hover:bg-black/80 transition-colors text-sm font-medium"
                   onClick={(e) => {
