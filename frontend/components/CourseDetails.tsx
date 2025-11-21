@@ -621,7 +621,7 @@ I'm excited to start learning! Please provide me with enrollment details.
 Thank you! 🚀`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/2347047249252?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/2349057843965?text=${encodedMessage}`;
     
     window.open(whatsappUrl, '_blank');
     setSelectedCourse(null);

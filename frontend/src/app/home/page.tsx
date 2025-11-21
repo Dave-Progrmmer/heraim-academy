@@ -51,26 +51,21 @@ export default function HomePage() {
         : `💰 *Price:* ₦${course.price.toLocaleString()}`
       : '';
     
+    const userName = user ? `${user.firstName} ${user.lastName}` : 'Student';
+    
     const message = `Hello Heraim Coding Hub! 👋
 
 I would like to enroll in:
 
 📚 *Course:* ${course.title}
-📊 *Level:* ${course.level}
-⏱️ *Duration:* ${course.duration}
+👤 *Name:* ${userName}
 ${priceText ? priceText + '\n' : ''}
-Course Syllabus:
-${course.syllabus.map((week) => 
-  `\n*Week ${week.week}: ${week.title}*
-${week.topics.map(topic => `  • ${topic}`).join('\n')}`
-).join('\n')}
-
 I'm excited to start learning! Please provide me with enrollment details.
 
 Thank you! 🚀`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/2347047249252?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/2349057843965?text=${encodedMessage}`;
     
     window.open(whatsappUrl, '_blank');
     setSelectedCourse(null);

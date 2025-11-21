@@ -561,21 +561,6 @@ export default function AuthScreens() {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-black mb-1">
-                  I am a
-                </label>
-                <select
-                  value={signupData.role}
-                  onChange={(e) =>
-                    setSignupData({ ...signupData, role: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border border-black/20 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition bg-white text-black"
-                >
-                  <option value="student">Student</option>
-                  <option value="instructor">Instructor</option>
-                </select>
-              </div>
 
               <div>
                 <label className="block text-sm font-medium text-black mb-1">
