@@ -734,12 +734,12 @@ type CourseDetailsModalProps = {
 
 export const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ course, onClose, onEnroll }) => {
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-4xl w-full my-8 shadow-2xl">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl">
         {/* Header */}
-        <div className="bg-gradient-to-r from-black/5 to-black/10 p-6 rounded-t-2xl border-b border-black/10">
+        <div className="bg-gradient-to-r from-black/5 to-black/10 p-6 rounded-t-2xl border-b border-black/10 flex-shrink-0">
           <div className="flex justify-between items-start">
-            <div className="flex-1">
+            <div className="flex-1 pr-4">
               <div className="flex items-center gap-3 mb-2">
                 <h2 className="text-3xl font-bold text-black">{course.title}</h2>
                 <span className="px-3 py-1 bg-white rounded-full text-xs font-semibold text-black border border-black/20">
@@ -789,7 +789,7 @@ export const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ course, 
             </div>
             <button
               onClick={onClose}
-              className="ml-4 p-2 hover:bg-white rounded-full transition-colors"
+              className="flex-shrink-0 p-2 hover:bg-white rounded-full transition-colors"
               type="button"
             >
               <svg className="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 20 20">
@@ -799,8 +799,8 @@ export const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ course, 
           </div>
         </div>
 
-        {/* Syllabus Content */}
-        <div className="p-6 max-h-96 overflow-y-auto">
+        {/* Syllabus Content - Scrollable */}
+        <div className="p-6 overflow-y-auto flex-1 min-h-0">
           <h3 className="text-2xl font-bold text-black mb-4 flex items-center gap-2">
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
               <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
@@ -838,7 +838,7 @@ export const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ course, 
         </div>
 
         {/* Footer */}
-        <div className="bg-black/5 p-6 rounded-b-2xl border-t border-black/10">
+        <div className="bg-black/5 p-6 rounded-b-2xl border-t border-black/10 flex-shrink-0">
           <div className="flex gap-4">
             <button
               onClick={onClose}

@@ -133,8 +133,75 @@ Thank you! 🚀`;
         <div className="mb-8">
           <h3 className="text-2xl font-bold text-black mb-4">Available Courses</h3>
           
-          {/* Packages Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Recommended Package - Highlighted */}
+          {coursesData
+            .filter(course => course.id === 11) // Full Stack Package
+            .map((course) => (
+              <div key={course.id} className="mb-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="px-3 py-1 bg-yellow-400 text-black rounded-full text-xs font-bold">
+                    ⭐ RECOMMENDED
+                  </span>
+                  <p className="text-sm text-black/70">We highly recommend this package for the best value!</p>
+                </div>
+                <div
+                  className="bg-gradient-to-br from-black to-black/90 border-2 border-yellow-400 rounded-xl p-6 hover:shadow-2xl hover:scale-[1.02] transition-all cursor-pointer group relative overflow-hidden"
+                  onClick={() => setSelectedCourse(course)}
+                >
+                  <div className="absolute top-0 right-0 bg-yellow-400 text-black px-4 py-1 text-xs font-bold rounded-bl-lg">
+                    BEST VALUE
+                  </div>
+                  <div className="flex justify-between items-start mb-3 mt-2">
+                    <h4 className="text-xl font-bold text-white group-hover:underline">
+                      {course.title}
+                    </h4>
+                    <span className="text-xs font-medium px-2 py-1 bg-white/20 text-white rounded-full backdrop-blur">
+                      {course.level}
+                    </span>
+                  </div>
+                  <p className="text-sm text-white/80 mb-2">
+                    Duration: {course.duration}
+                  </p>
+                  <p className="text-sm text-white/90 mb-4">
+                    {course.description}
+                  </p>
+                  {course.price > 0 && (
+                    <div className="mb-4">
+                      <div className="flex items-baseline gap-2">
+                        {course.originalPrice && course.originalPrice > course.price && (
+                          <span className="text-sm text-white/60 line-through">
+                            ₦{course.originalPrice.toLocaleString()}
+                          </span>
+                        )}
+                        <span className="text-2xl font-bold text-yellow-400">
+                          ₦{course.price.toLocaleString()}
+                        </span>
+                      </div>
+                      {course.originalPrice && course.originalPrice > course.price && (
+                        <span className="inline-block mt-2 px-3 py-1 bg-yellow-400 text-black rounded text-xs font-bold">
+                          Save ₦{(course.originalPrice - course.price).toLocaleString()}!
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  <button 
+                    className="w-full py-3 bg-yellow-400 text-black rounded-lg hover:bg-yellow-300 transition-colors font-bold text-sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedCourse(course);
+                    }}
+                    type="button"
+                  >
+                    View Details & Enroll
+                  </button>
+                </div>
+              </div>
+            ))}
+
+          {/* Other Packages Section */}
+          <div className="mb-6">
+            <h4 className="text-lg font-semibold text-black mb-4">Other Packages</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {coursesData
               .filter(course => course.id === 9 || course.id === 10) // Frontend Package and Backend Package
               .map((course) => (
@@ -180,6 +247,7 @@ Thank you! 🚀`;
                   </button>
                 </div>
               ))}
+            </div>
           </div>
 
           {/* Separator Text */}
